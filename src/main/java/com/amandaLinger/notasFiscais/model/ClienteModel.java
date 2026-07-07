@@ -22,5 +22,5 @@ public class ClienteModel {
     private String nome;
 
     @NotNull
-    private long codigo;
+    private Long codigo;
 }
