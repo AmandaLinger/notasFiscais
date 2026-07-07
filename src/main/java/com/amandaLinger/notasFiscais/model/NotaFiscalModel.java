@@ -3,6 +3,7 @@ package com.amandaLinger.notasFiscais.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity(name = "NotaFiscal")
@@ -19,6 +20,8 @@ public class NotaFiscalModel {
     private Long id;
 
     private Long numeroNotaFiscal;
+
+    private LocalDate data;
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")

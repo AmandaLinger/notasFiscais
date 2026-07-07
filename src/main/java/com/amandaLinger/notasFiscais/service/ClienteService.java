@@ -4,6 +4,7 @@ package com.amandaLinger.notasFiscais.service;
 import com.amandaLinger.notasFiscais.dto.ClienteDto;
 import com.amandaLinger.notasFiscais.model.ClienteModel;
 import com.amandaLinger.notasFiscais.repository.ClienteRepository;
+import com.amandaLinger.notasFiscais.repository.NotaFiscalRepository;
 import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,10 +22,12 @@ public class ClienteService {
     @Autowired
     private ClienteRepository clienteRepository;
 
+    @Autowired
+    private NotaFiscalRepository notaFiscalRepository;
+
     //chamando todos clientes
     public List<ClienteModel> getAllClientes(){
-        List<ClienteModel> clienteDtos = clienteRepository.findAll();
-        return clienteDtos;
+        return clienteRepository.findAll();
     }
 
     //criando cliente
