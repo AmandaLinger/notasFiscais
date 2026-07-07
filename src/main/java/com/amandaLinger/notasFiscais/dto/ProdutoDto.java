@@ -11,6 +11,9 @@ import lombok.*;
 @ToString
 @Builder
 public class ProdutoDto {
+    @NotNull
+    private Long id;
+
     @NotBlank
     private String nome;
 

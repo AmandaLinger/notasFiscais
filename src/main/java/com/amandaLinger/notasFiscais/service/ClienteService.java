@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -42,7 +43,20 @@ public class ClienteService {
     }
 
     //deletando cliente
+    @Transactional
     public void deleteCliente(Long id){
         clienteRepository.deleteById(id);
     }
+
+
+    //atualizando o cliente
+    @Transactional
+    public void updateCliente(@RequestBody ClienteDto clienteDto) {
+        ClienteModel cliente = clienteRepository.findByCodigo(clienteDto.getCodigo())
+                .orElseThrow(() -> new RuntimeException("Cliente nao encontrado"));
+        cliente.setNome(clienteDto.getNome());
+
+        clienteRepository.save(cliente);
+    }
+
 }

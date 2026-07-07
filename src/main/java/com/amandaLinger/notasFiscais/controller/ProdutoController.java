@@ -28,4 +28,17 @@ public class ProdutoController {
     public void cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto) throws Exception {
         produtoService.createProduto(produtoDto);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public String deleteProduto(@PathVariable Long id){
+        produtoService.deleteProduto(id);
+        return "Produto excuídp";
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void atualizarProduto(@RequestBody @Valid ProdutoDto produtoDto){
+        produtoService.updateProduto(produtoDto);
+    }
 }

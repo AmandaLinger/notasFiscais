@@ -38,4 +38,13 @@ public class ClienteController {
         clienteService.deleteCliente(id);
         return  "Cliente deletado com sucesso";
     }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public String updateCliente(@RequestBody ClienteDto clienteDto){
+
+        clienteService.updateCliente(clienteDto);
+        return "Cliente atualizado com sucesso";
+    }
+
 }

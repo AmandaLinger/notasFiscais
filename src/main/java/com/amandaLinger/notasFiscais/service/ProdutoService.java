@@ -6,6 +6,7 @@ import com.amandaLinger.notasFiscais.model.ProdutoModel;
 import com.amandaLinger.notasFiscais.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
@@ -37,5 +38,25 @@ public class ProdutoService {
 
     public List<ProdutoDto> getAllProdutos() {
         return  produtoRepository.getAllProdutos();
+    }
+
+    @Transactional
+    public void deleteProduto(Long id) {
+        produtoRepository.deleteById(id);
+    }
+
+    @Transactional
+    public String updateProduto(ProdutoDto produtoDto){
+        ProdutoModel produto = produtoRepository.findById(produtoDto.getId())
+                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+        produto.setNome(produtoDto.getNome());
+        produto.setPreco(produtoDto.getPreco());
+        produto.setDescricao(produtoDto.getDescricao());
+
+        produtoRepository.save(produto);
+
+        return "Produto atualizado com sucesso!";
+
     }
 }
