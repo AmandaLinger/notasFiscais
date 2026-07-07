@@ -4,9 +4,12 @@ package com.amandaLinger.notasFiscais.service;
 import com.amandaLinger.notasFiscais.dto.ClienteDto;
 import com.amandaLinger.notasFiscais.model.ClienteModel;
 import com.amandaLinger.notasFiscais.repository.ClienteRepository;
+import jakarta.validation.Valid;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -24,17 +27,17 @@ public class ClienteService {
     }
 
     //criando cliente
-    public void createCliente(ClienteDto clienteDto) {
-        ClienteModel cliente = clienteRepository.findByCodigo(clienteDto.codigo())
+    public void createCliente(@RequestBody @Valid ClienteDto clienteDto) throws BadRequestException {
+        ClienteModel cliente = clienteRepository.findByCodigo(clienteDto.getCodigo())
                 .orElse(null);
 
         if(cliente != null){
-            throw new RuntimeException("Cliente ja cadastrado em esse código");
+            throw new BadRequestException("Cliente ja cadastrado em esse código");
         }
 
         clienteRepository.save(ClienteModel.builder()
-                        .nome(clienteDto.nome())
-                .codigo(clienteDto.codigo())
+                        .nome(clienteDto.getNome())
+                .codigo(clienteDto.getCodigo())
                 .build());
     }
 }

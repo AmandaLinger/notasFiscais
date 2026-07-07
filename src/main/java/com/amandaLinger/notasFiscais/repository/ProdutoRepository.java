@@ -7,15 +7,19 @@ import org.springframework.data.jpa.repository.NativeQuery;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ProdutoRepository extends JpaRepository<ProdutoModel,Long> {
-    @NativeQuery(value = """
-        SELECT p.nome nomeProduto,
-               p.preco precoProduto,
-               p.descricao descricaoProduto
+    @Query(value = """
+    SELECT
+        p.nome AS nome,
+        p.preco AS preco,
+        p.descricao AS descricao
     FROM Produtos p
-""")
+    """, nativeQuery = true)
     List<ProdutoDto> getAllProdutos();
 
+
+    Optional<ProdutoModel> findByNome(String nome);
 }

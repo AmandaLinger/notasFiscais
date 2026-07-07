@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Validated
@@ -17,10 +18,17 @@ public class ProdutoService {
     private ProdutoRepository produtoRepository;
 
     public void createProduto(ProdutoDto produtoDto) {
-        ProdutoModel produto = ProdutoModel.builder()
-                .nome(produtoDto.nome())
-                .preco(produtoDto.preco())
-                .descricao(produtoDto.descricao())
+        ProdutoModel produto = produtoRepository.findByNome(produtoDto.getNome())
+                .orElse(null);
+
+        if(produto != null){
+            throw new IllegalStateException("Produto já existente com esse nome.");
+        }
+
+        produto = ProdutoModel.builder()
+                .nome(produtoDto.getNome())
+                .preco(produtoDto.getPreco())
+                .descricao(produtoDto.getDescricao())
                 .build();
 
         produtoRepository.save(produto);

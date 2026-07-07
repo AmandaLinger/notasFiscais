@@ -22,6 +22,9 @@ public class NotaFiscalModel {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    private ClienteModel cliente;
+    ClienteModel cliente;
 
+    @OneToMany   //corrigir
+    @JoinColumn(name = "produto_id" )
+    List<ProdutoModel> produtos;
 }
