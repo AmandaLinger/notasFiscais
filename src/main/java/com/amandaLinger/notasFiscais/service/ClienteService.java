@@ -40,4 +40,9 @@ public class ClienteService {
                 .codigo(clienteDto.getCodigo())
                 .build());
     }
+
+    //deletando cliente
+    public void deleteCliente(Long id){
+        clienteRepository.deleteById(id);
+    }
 }

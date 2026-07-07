@@ -25,7 +25,7 @@ public class ProdutoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto){
+    public void cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto) throws Exception {
         produtoService.createProduto(produtoDto);
     }
 }

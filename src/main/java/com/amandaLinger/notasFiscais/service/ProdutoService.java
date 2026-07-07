@@ -1,5 +1,6 @@
 package com.amandaLinger.notasFiscais.service;
 
+import com.amandaLinger.notasFiscais.ValidacaoException;
 import com.amandaLinger.notasFiscais.dto.ProdutoDto;
 import com.amandaLinger.notasFiscais.model.ProdutoModel;
 import com.amandaLinger.notasFiscais.repository.ProdutoRepository;
@@ -17,12 +18,12 @@ public class ProdutoService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
-    public void createProduto(ProdutoDto produtoDto) {
+    public void createProduto(ProdutoDto produtoDto){
         ProdutoModel produto = produtoRepository.findByNome(produtoDto.getNome())
                 .orElse(null);
 
         if(produto != null){
-            throw new IllegalStateException("Produto já existente com esse nome.");
+            throw new ValidacaoException("Produto já existente com esse nome.");
         }
 
         produto = ProdutoModel.builder()
