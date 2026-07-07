@@ -25,4 +25,6 @@ public class ProdutoModel {
 
     private String descricao;
 
+    private Integer quantidade;
+
 }

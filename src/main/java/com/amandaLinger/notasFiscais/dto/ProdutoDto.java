@@ -11,7 +11,6 @@ import lombok.*;
 @ToString
 @Builder
 public class ProdutoDto {
-    @NotNull
     private Long id;
 
     @NotBlank
@@ -21,5 +20,8 @@ public class ProdutoDto {
     private Double preco;
 
     private String descricao;
+
+    @NotNull
+    private Integer quantidade;
 
 }

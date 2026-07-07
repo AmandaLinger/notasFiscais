@@ -3,9 +3,9 @@ package com.amandaLinger.notasFiscais.service;
 import com.amandaLinger.notasFiscais.dto.NotaFiscalDto;
 import com.amandaLinger.notasFiscais.model.NotaFiscalModel;
 import com.amandaLinger.notasFiscais.repository.NotaFiscalRepository;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -27,10 +27,12 @@ public class NotaFiscalService {
     }
 
 
+    @Transactional
     public void deleteNota(Long id) {
         notaFiscalRepository.deleteById(id);
     }
 
+    @Transactional
     public void updateNota( NotaFiscalDto notaFiscalDto) {
         NotaFiscalModel notaFiscal =  new NotaFiscalModel();
         notaFiscal.setNumeroNotaFiscal(notaFiscalDto.getNumeroNotaFiscal());

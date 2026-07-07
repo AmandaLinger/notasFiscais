@@ -21,7 +21,7 @@ public class NotaFiscalModel {
 
     private Long numeroNotaFiscal;
 
-    private LocalDate data;
+    private LocalDate data = LocalDate.now();
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")

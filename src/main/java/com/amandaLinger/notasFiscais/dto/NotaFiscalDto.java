@@ -1,5 +1,6 @@
 package com.amandaLinger.notasFiscais.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -12,11 +13,12 @@ import java.util.List;
 @ToString
 @Builder
 public class NotaFiscalDto {
-
+    @NotNull
     private Long numeroNotaFiscal;
 
     private LocalDate data;
 
+    @NotNull
     private Integer codigoCliente;
 
     private List<ItemNotaFiscalDto> itens;

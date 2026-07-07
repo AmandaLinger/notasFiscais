@@ -1,6 +1,6 @@
 package com.amandaLinger.notasFiscais.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @NoArgsConstructor
@@ -11,6 +11,8 @@ import lombok.*;
 @Builder
 public class ItemNotaFiscalDto {
 
+    @NotNull
     private Long produtoId;
+    @NotNull
     private Integer quantidade;
 }

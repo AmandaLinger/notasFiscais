@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Validated
@@ -30,6 +29,7 @@ public class ProdutoService {
         produto = ProdutoModel.builder()
                 .nome(produtoDto.getNome())
                 .preco(produtoDto.getPreco())
+                .quantidade(produtoDto.getQuantidade())
                 .descricao(produtoDto.getDescricao())
                 .build();
 
