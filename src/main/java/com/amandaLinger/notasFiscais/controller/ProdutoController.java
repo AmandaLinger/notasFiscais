@@ -1,6 +1,7 @@
 package com.amandaLinger.notasFiscais.controller;
 
 import com.amandaLinger.notasFiscais.dto.ProdutoDto;
+import com.amandaLinger.notasFiscais.dto.ProdutoDto4Construtores;
 import com.amandaLinger.notasFiscais.service.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,7 @@ public class ProdutoController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProdutoDto> listarTodosProdutos(){
+    public List<ProdutoDto4Construtores> listarTodosProdutos(){
         return produtoService.getAllProdutos();
     }
 

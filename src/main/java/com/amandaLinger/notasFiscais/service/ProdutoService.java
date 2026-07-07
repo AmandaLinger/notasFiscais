@@ -2,6 +2,7 @@ package com.amandaLinger.notasFiscais.service;
 
 import com.amandaLinger.notasFiscais.ValidacaoException;
 import com.amandaLinger.notasFiscais.dto.ProdutoDto;
+import com.amandaLinger.notasFiscais.dto.ProdutoDto4Construtores;
 import com.amandaLinger.notasFiscais.model.ProdutoModel;
 import com.amandaLinger.notasFiscais.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class ProdutoService {
         produtoRepository.save(produto);
     }
 
-    public List<ProdutoDto> getAllProdutos() {
+    public List<ProdutoDto4Construtores> getAllProdutos() {
         return  produtoRepository.getAllProdutos();
     }
 
