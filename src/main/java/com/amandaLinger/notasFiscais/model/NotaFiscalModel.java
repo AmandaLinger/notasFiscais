@@ -22,9 +22,10 @@ public class NotaFiscalModel {
 
     @ManyToOne
     @JoinColumn(name = "cliente_id")
-    ClienteModel cliente;
+    private ClienteModel cliente;
 
-    @OneToMany   //corrigir
-    @JoinColumn(name = "produto_id" )
-    List<ProdutoModel> produtos;
+    @OneToMany(mappedBy = "notaFiscal",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
+    private List<ItemNotaFiscalModel> itens;
 }

@@ -28,7 +28,7 @@ public class ClienteService {
     }
 
     //criando cliente
-    public void createCliente(@RequestBody @Valid ClienteDto clienteDto) throws BadRequestException {
+    public void createCliente(ClienteDto clienteDto) throws BadRequestException {
         ClienteModel cliente = clienteRepository.findByCodigo(clienteDto.getCodigo())
                 .orElse(null);
 
@@ -51,7 +51,7 @@ public class ClienteService {
 
     //atualizando o cliente
     @Transactional
-    public void updateCliente(@RequestBody ClienteDto clienteDto) {
+    public void updateCliente(ClienteDto clienteDto) {
         ClienteModel cliente = clienteRepository.findByCodigo(clienteDto.getCodigo())
                 .orElseThrow(() -> new RuntimeException("Cliente nao encontrado"));
         cliente.setNome(clienteDto.getNome());
