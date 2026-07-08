@@ -111,16 +111,21 @@ public class NotaFiscalService {
         notaFiscalRepository.save(notaFiscal);
     }
 
-    public NotaFiscalModel findById(Long id) {
-        return  notaFiscalRepository.findById(id).get();
+    public NotaFiscalDtoFinal findById(Long id) {
+
+        NotaFiscalModel nota = notaFiscalRepository.findById(id)
+                .orElseThrow(() -> new ValidacaoException("Nota fiscal não encontrada"));
+
+        return paraDto(nota);
     }
 
+
+
+    //função para metodo de listar todas notas fiscais
     public List<NotaFiscalDtoFinal> findAllNotaFiscal() {
         return listarNotas();
     }
 
-
-    //função para metodo de listar todas notas fiscais
     public List<NotaFiscalDtoFinal> listarNotas() {
         return notaFiscalRepository.findAll()
                 .stream()

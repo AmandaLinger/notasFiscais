@@ -48,7 +48,7 @@ public class NotaFiscalController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public NotaFiscalModel findNotaFiscal(@PathVariable Long id){
+    public NotaFiscalDtoFinal findNotaFiscal(@PathVariable Long id){
         return notaFiscalService.findById(id);
     }
 }
