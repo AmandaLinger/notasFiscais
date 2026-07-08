@@ -1,5 +1,6 @@
 package com.amandaLinger.notasFiscais.controller;
 
+import com.amandaLinger.notasFiscais.dto.ItemNotaFiscalDto;
 import com.amandaLinger.notasFiscais.dto.NotaFiscalDto;
 import com.amandaLinger.notasFiscais.model.NotaFiscalModel;
 import com.amandaLinger.notasFiscais.service.NotaFiscalService;
@@ -31,10 +32,10 @@ public class NotaFiscalController {
         return "Nota deletada com sucesso";
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String updateNota(@RequestBody @Valid NotaFiscalDto notaFiscalDto) {
-        notaFiscalService.updateNota(notaFiscalDto);
+    public String updateNota(@PathVariable Long id,@RequestBody @Valid List<ItemNotaFiscalDto> itens) {
+        notaFiscalService.updateNota(id,itens);
         return "Nota atualizada com sucesso";
     }
 

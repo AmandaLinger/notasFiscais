@@ -1,6 +1,7 @@
 package com.amandaLinger.notasFiscais.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Entity
@@ -27,4 +28,5 @@ public class ItemNotaFiscalModel {
     @ManyToOne
     @JoinColumn(name = "nota_fiscal_id")
     private NotaFiscalModel notaFiscal;
+
 }

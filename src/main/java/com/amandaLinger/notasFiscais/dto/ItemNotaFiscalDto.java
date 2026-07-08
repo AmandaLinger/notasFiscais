@@ -15,4 +15,8 @@ public class ItemNotaFiscalDto {
     private Long produtoId;
     @NotNull
     private Integer quantidade;
+
+    @NotNull
+    private Double precoUnitario;
+
 }

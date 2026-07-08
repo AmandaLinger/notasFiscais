@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "NotaFiscal")
@@ -30,5 +31,5 @@ public class NotaFiscalModel {
     @OneToMany(mappedBy = "notaFiscal",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    private List<ItemNotaFiscalModel> itens;
+    private List<ItemNotaFiscalModel> itens = new ArrayList<>();
 }
