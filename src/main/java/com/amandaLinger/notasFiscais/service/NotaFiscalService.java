@@ -32,35 +32,58 @@ public class NotaFiscalService {
     @Autowired
     private ProdutoRepository produtoRepository;
 
+    NotaFiscalModel notaFiscal =  new NotaFiscalModel();
+
     public void createNotaFiscal(NotaFiscalDto notaFiscalDto) {
         ClienteModel cliente = clienteRepository.findByCodigo(
                         Long.valueOf(notaFiscalDto.getCodigoCliente()))
                 .orElseThrow(() -> new ValidacaoException("Cliente não encontrado"));
 
+        validaCodigoNota(notaFiscalDto);
 
-        NotaFiscalModel numeroNota = notaFiscalRepository.findById(notaFiscalDto.getNumeroNotaFiscal())
-                .orElseThrow(() -> new ValidacaoException("numero de nota fiscal já existente"));
-
-        NotaFiscalModel notaFiscal =  new NotaFiscalModel();
-        notaFiscal.setNumeroNotaFiscal(numeroNota.getId());
         notaFiscal.setData(notaFiscalDto.getData());
 
         for (ItemNotaFiscalDto itemDto : notaFiscalDto.getItens()) {
             ItemNotaFiscalModel item = new ItemNotaFiscalModel();
-            item.setQuantidade(itemDto.getQuantidade());
 
             ProdutoModel produto = produtoRepository.findById(itemDto.getProdutoId())
                     .orElseThrow(() -> new ValidacaoException("Produto não encontrado"));
 
+            item.setQuantidade(itemDto.getQuantidade());
             item.setProduto(produto);
             item.setPrecoUnitario(produto.getPreco());
             item.setNotaFiscal(notaFiscal);
             notaFiscal.getItens().add(item);
+
+            diminuiQuantidadePosCompra(itemDto);
         }
         notaFiscal.setCliente(cliente);
 
         notaFiscalRepository.save(notaFiscal);
+    }
 
+
+    //diminuindo quantidade de produto após compra
+    public void diminuiQuantidadePosCompra(ItemNotaFiscalDto itemNotaFiscalDto) {
+        ProdutoModel produto = produtoRepository.findById(itemNotaFiscalDto.getProdutoId())
+                .orElseThrow(() -> new ValidacaoException("produto não encontrado"));
+
+        if(produto.getQuantidade()<itemNotaFiscalDto.getQuantidade()){
+            throw new ValidacaoException("Estoque insuficiente");
+        }
+
+        produto.setQuantidade(produto.getQuantidade() - itemNotaFiscalDto.getQuantidade());
+    }
+
+    //validando codigo nota fiscal
+    public void validaCodigoNota(NotaFiscalDto notaFiscalDto) {
+        NotaFiscalModel numeroNota = notaFiscalRepository.findById(notaFiscalDto.getNumeroNotaFiscal())
+                .orElse(null);
+        if(numeroNota != null) {
+            throw new ValidacaoException("Outra nota já cadastrada com esse número");
+        } else if(numeroNota == null) {
+            notaFiscal.setNumeroNotaFiscal(notaFiscalDto.getNumeroNotaFiscal());
+        }
     }
 
 
