@@ -99,13 +99,22 @@ public class NotaFiscalService {
         NotaFiscalModel notaFiscal = notaFiscalRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("Nota não encontrada"));
 
+        notaFiscal.getItens().clear();
+
 
         for (ItemNotaFiscalDto itemDto : itens) {
+            ProdutoModel produto = produtoRepository.findById(itemDto.getProdutoId())
+                    .orElseThrow(() -> new ValidacaoException("Produto não encontrado"));
+
+
             ItemNotaFiscalModel item = new ItemNotaFiscalModel();
-            item.setPrecoUnitario(produtoRepository.findByPreco(itemDto.getProdutoId()));
+            item.setProduto(produto);
+            item.setPrecoUnitario(produto.getPreco());
             item.setQuantidade(itemDto.getQuantidade());
             item.setNotaFiscal(notaFiscal);
             notaFiscal.getItens().add(item);
+
+            diminuiQuantidadePosCompra(itemDto);
         }
 
         notaFiscalRepository.save(notaFiscal);
