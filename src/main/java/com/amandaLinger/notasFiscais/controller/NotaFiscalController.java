@@ -2,6 +2,7 @@ package com.amandaLinger.notasFiscais.controller;
 
 import com.amandaLinger.notasFiscais.dto.ItemNotaFiscalDto;
 import com.amandaLinger.notasFiscais.dto.NotaFiscalDto;
+import com.amandaLinger.notasFiscais.dto.NotaFiscalDtoFinal;
 import com.amandaLinger.notasFiscais.model.NotaFiscalModel;
 import com.amandaLinger.notasFiscais.service.NotaFiscalService;
 import jakarta.validation.Valid;
@@ -41,8 +42,8 @@ public class NotaFiscalController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<NotaFiscalModel> findAllNotaFiscal(){
-        return notaFiscalService.findAll();
+    public List<NotaFiscalDtoFinal> findAllNotaFiscal(){
+        return notaFiscalService.findAllNotaFiscal();
     }
 
     @GetMapping("/{id}")

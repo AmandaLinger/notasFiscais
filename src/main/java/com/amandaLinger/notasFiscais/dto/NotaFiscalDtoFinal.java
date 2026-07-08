@@ -1,6 +1,5 @@
 package com.amandaLinger.notasFiscais.dto;
 
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -13,7 +12,7 @@ import java.util.List;
 @Setter
 @ToString
 @Builder
-public class NotaFiscalDto {
+public class NotaFiscalDtoFinal {
     @NotNull
     private Long numeroNotaFiscal;
 
@@ -24,4 +23,5 @@ public class NotaFiscalDto {
 
     private List<ItemNotaFiscalDto> itens;
 
+    private Double valorTotal;
 }

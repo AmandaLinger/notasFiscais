@@ -23,7 +23,6 @@ public class NotaFiscalModel {
     private Long numeroNotaFiscal;
 
     private LocalDate data = LocalDate.now();
-
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private ClienteModel cliente;
@@ -32,4 +31,11 @@ public class NotaFiscalModel {
             cascade = CascadeType.ALL,
             orphanRemoval = true)
     private List<ItemNotaFiscalModel> itens = new ArrayList<>();
+
+    @Transient
+    public double getPrecoTotal() {
+        return itens.stream()
+                .mapToDouble(item -> item.getQuantidade()* item.getPrecoUnitario())
+                .sum();
+    }
 }

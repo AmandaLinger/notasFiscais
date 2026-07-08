@@ -3,6 +3,7 @@ package com.amandaLinger.notasFiscais.service;
 import com.amandaLinger.notasFiscais.ValidacaoException;
 import com.amandaLinger.notasFiscais.dto.ItemNotaFiscalDto;
 import com.amandaLinger.notasFiscais.dto.NotaFiscalDto;
+import com.amandaLinger.notasFiscais.dto.NotaFiscalDtoFinal;
 import com.amandaLinger.notasFiscais.model.ClienteModel;
 import com.amandaLinger.notasFiscais.model.ItemNotaFiscalModel;
 import com.amandaLinger.notasFiscais.model.NotaFiscalModel;
@@ -11,10 +12,12 @@ import com.amandaLinger.notasFiscais.repository.ClienteRepository;
 import com.amandaLinger.notasFiscais.repository.ItemNotaFiscalRepository;
 import com.amandaLinger.notasFiscais.repository.NotaFiscalRepository;
 import com.amandaLinger.notasFiscais.repository.ProdutoRepository;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -86,7 +89,6 @@ public class NotaFiscalService {
         }
     }
 
-
     @Transactional
     public void deleteNota(Long id) {
         notaFiscalRepository.deleteById(id);
@@ -109,12 +111,52 @@ public class NotaFiscalService {
         notaFiscalRepository.save(notaFiscal);
     }
 
-    public List<NotaFiscalModel> findAll() {
-        return notaFiscalRepository.findAll();
-
-    }
-
     public NotaFiscalModel findById(Long id) {
         return  notaFiscalRepository.findById(id).get();
     }
+
+    public List<NotaFiscalDtoFinal> findAllNotaFiscal() {
+        return listarNotas();
+    }
+
+
+    //função para metodo de listar todas notas fiscais
+    public List<NotaFiscalDtoFinal> listarNotas() {
+        return notaFiscalRepository.findAll()
+                .stream()
+                .map(this::paraDto)
+                .toList();
+    }
+    private NotaFiscalDtoFinal paraDto(NotaFiscalModel nota) {
+
+        NotaFiscalDtoFinal dto = new NotaFiscalDtoFinal();
+
+        dto.setNumeroNotaFiscal(nota.getNumeroNotaFiscal());
+        dto.setData(nota.getData());
+        dto.setCodigoCliente(nota.getCliente().getCodigo());
+        dto.setValorTotal(nota.getPrecoTotal());
+
+        // Converte os itens
+        List<ItemNotaFiscalDto> itens = nota.getItens()
+                .stream()
+                .map(this::paraItemDto)
+                .toList();
+
+        dto.setItens(itens);
+
+        return dto;
+    }
+
+    private ItemNotaFiscalDto paraItemDto(ItemNotaFiscalModel item) {
+
+        ItemNotaFiscalDto dto = new ItemNotaFiscalDto();
+
+        dto.setQuantidade(item.getQuantidade());
+        dto.setProdutoId(item.getProduto().getId());
+        dto.setPrecoUnitario(item.getPrecoUnitario());
+
+        return dto;
+    }
+
+
 }
