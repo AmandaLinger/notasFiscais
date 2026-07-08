@@ -37,7 +37,7 @@ public class ProdutoService {
         produtoRepository.save(produto);
     }
 
-    public List<ProdutoDto4Construtores> getAllProdutos() {
+    public List<ProdutoModel> getAllProdutos() {
         return  produtoRepository.getAllProdutos();
     }
 
@@ -54,6 +54,7 @@ public class ProdutoService {
         produto.setNome(produtoDto.getNome());
         produto.setPreco(produtoDto.getPreco());
         produto.setDescricao(produtoDto.getDescricao());
+        produto.setQuantidade(produtoDto.getQuantidade());
 
         produtoRepository.save(produto);
 

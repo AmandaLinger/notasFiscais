@@ -13,13 +13,14 @@ import java.util.Optional;
 public interface ProdutoRepository extends JpaRepository<ProdutoModel,Long> {
     @Query(value = """
     SELECT
+        p.id AS id,
         p.nome AS nome,
         p.preco AS preco,
         p.descricao AS descricao,
         p.quantidade AS quantidade    
     FROM Produtos p
     """, nativeQuery = true)
-    List<ProdutoDto4Construtores> getAllProdutos();
+    List<ProdutoModel> getAllProdutos();
 
 
     Optional<ProdutoModel> findByNome(String nome);

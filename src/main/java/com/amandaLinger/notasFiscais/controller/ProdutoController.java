@@ -2,6 +2,7 @@ package com.amandaLinger.notasFiscais.controller;
 
 import com.amandaLinger.notasFiscais.dto.ProdutoDto;
 import com.amandaLinger.notasFiscais.dto.ProdutoDto4Construtores;
+import com.amandaLinger.notasFiscais.model.ProdutoModel;
 import com.amandaLinger.notasFiscais.service.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,21 +21,22 @@ public class ProdutoController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<ProdutoDto4Construtores> listarTodosProdutos(){
+    public List<ProdutoModel> listarTodosProdutos(){
         return produtoService.getAllProdutos();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto) throws Exception {
+    public String cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto) throws Exception {
         produtoService.createProduto(produtoDto);
+        return  "Produto criado com sucesso.";
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public String deleteProduto(@PathVariable Long id){
         produtoService.deleteProduto(id);
-        return "Produto excuídp";
+        return "Produto excuído";
     }
 
     @PutMapping

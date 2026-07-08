@@ -1,6 +1,7 @@
 package com.amandaLinger.notasFiscais.service;
 
 
+import com.amandaLinger.notasFiscais.ValidacaoException;
 import com.amandaLinger.notasFiscais.dto.ClienteDto;
 import com.amandaLinger.notasFiscais.model.ClienteModel;
 import com.amandaLinger.notasFiscais.repository.ClienteRepository;
@@ -29,12 +30,12 @@ public class ClienteService {
     }
 
     //criando cliente
-    public void createCliente(ClienteDto clienteDto) throws RuntimeException {
+    public void createCliente(ClienteDto clienteDto){
         ClienteModel cliente = clienteRepository.findByCodigo(clienteDto.getCodigo())
                 .orElse(null);
 
         if(cliente != null){
-            throw new RuntimeException("Cliente ja cadastrado em esse código");
+            throw new ValidacaoException("Cliente ja cadastrado em esse código");
         }
 
         clienteRepository.save(ClienteModel.builder()
@@ -47,7 +48,8 @@ public class ClienteService {
     //deletando cliente
     @Transactional
     public void deleteCliente(Long id){
-        clienteRepository.deleteById(id);
+        ClienteModel cliente = clienteRepository.findById(id)
+                .orElseThrow(() -> new ValidacaoException("Id não encontrado"));
     }
 
 
@@ -55,15 +57,14 @@ public class ClienteService {
     @Transactional
     public void updateCliente(ClienteDto clienteDto) {
         ClienteModel cliente = clienteRepository.findByCodigo(clienteDto.getCodigo())
-                .orElseThrow(() -> new RuntimeException("Cliente nao encontrado"));
+                .orElseThrow(() -> new ValidacaoException("Cliente não encontrado"));
         cliente.setNome(clienteDto.getNome());
 
         clienteRepository.save(cliente);
     }
 
-    public Optional<ClienteModel> getCliente(Long codigo) {
-        clienteRepository.findByCodigo(codigo).orElseThrow(() -> new RuntimeException("Cliente nao encontrado"));
-
-        return clienteRepository.findByCodigo(codigo);
+    public ClienteModel getCliente(Long codigo) {
+        return clienteRepository.findByCodigo(codigo)
+                .orElseThrow(() -> new ValidacaoException("Cliente não encontrado"));
     }
 }

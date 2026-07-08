@@ -27,7 +27,7 @@ public class ClienteController {
     }
 
     @GetMapping("/{codigo}")
-    public Optional<ClienteModel> listarCliente(@PathVariable Long codigo){
+    public ClienteModel listarCliente(@PathVariable Long codigo){
         return clienteService.getCliente(codigo);
     }
 
