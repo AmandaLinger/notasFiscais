@@ -43,22 +43,38 @@ public class ProdutoService {
 
     @Transactional
     public void deleteProduto(Long id) {
+        ProdutoModel produto = produtoRepository.findById(id)
+                .orElse(null);
+        if(produto == null){
+            throw new ValidacaoException("Produto não encontrado");
+        }
+
         produtoRepository.deleteById(id);
     }
 
     @Transactional
-    public String updateProduto(ProdutoDto produtoDto){
-        ProdutoModel produto = produtoRepository.findById(produtoDto.getId())
-                .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+    public void updateProduto(Long id, ProdutoDto4Construtores produtoDto4Construtores){
+        ProdutoModel produto = produtoRepository.findById(id)
+                .orElseThrow(() -> new ValidacaoException("Produto não encontrado"));
 
-        produto.setNome(produtoDto.getNome());
-        produto.setPreco(produtoDto.getPreco());
-        produto.setDescricao(produtoDto.getDescricao());
-        produto.setQuantidade(produtoDto.getQuantidade());
+        produto.setNome(produtoDto4Construtores.getNome());
+        produto.setPreco(produtoDto4Construtores.getPreco());
+        produto.setDescricao(produtoDto4Construtores.getDescricao());
+        produto.setQuantidade(produtoDto4Construtores.getQuantidade());
 
         produtoRepository.save(produto);
 
-        return "Produto atualizado com sucesso!";
 
+    }
+
+    public ProdutoModel getProduto(Long id) {
+        ProdutoModel produto = produtoRepository.findById(id)
+                .orElse(null);
+
+        if(produto == null){
+            throw new ValidacaoException("Produto não encontrado");
+        }
+
+        return produto;
     }
 }

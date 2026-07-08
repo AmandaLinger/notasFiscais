@@ -25,9 +25,15 @@ public class ProdutoController {
         return produtoService.getAllProdutos();
     }
 
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ProdutoModel listaProduto(@PathVariable Long id){
+        return produtoService.getProduto(id);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto) throws Exception {
+    public String cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto){
         produtoService.createProduto(produtoDto);
         return  "Produto criado com sucesso.";
     }
@@ -36,12 +42,15 @@ public class ProdutoController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public String deleteProduto(@PathVariable Long id){
         produtoService.deleteProduto(id);
-        return "Produto excuído";
+        return "Produto excuído com sucesso.";
     }
 
-    @PutMapping
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void atualizarProduto(@RequestBody @Valid ProdutoDto produtoDto){
-        produtoService.updateProduto(produtoDto);
+    public String atualizarProduto(@PathVariable Long id,
+                                   @RequestBody @Valid  ProdutoDto4Construtores produtoDto4construtores){
+        produtoService.updateProduto(id, produtoDto4construtores);
+
+        return "Produto atualizado com sucesso!";
     }
 }
