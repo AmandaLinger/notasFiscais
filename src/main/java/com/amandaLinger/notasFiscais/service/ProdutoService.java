@@ -30,7 +30,6 @@ public class ProdutoService {
         produto = ProdutoModel.builder()
                 .nome(produtoDto.getNome())
                 .preco(produtoDto.getPreco())
-                .quantidade(produtoDto.getQuantidade())
                 .descricao(produtoDto.getDescricao())
                 .build();
 
@@ -67,7 +66,6 @@ public class ProdutoService {
         produto.setNome(produtoDto4Construtores.getNome());
         produto.setPreco(produtoDto4Construtores.getPreco());
         produto.setDescricao(produtoDto4Construtores.getDescricao());
-        produto.setQuantidade(produtoDto4Construtores.getQuantidade());
 
         produtoRepository.save(produto);
 

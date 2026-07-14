@@ -26,7 +26,4 @@ public class ProdutoModel {
     private BigDecimal preco;
 
     private String descricao;
-
-    private BigDecimal quantidade;
-
 }

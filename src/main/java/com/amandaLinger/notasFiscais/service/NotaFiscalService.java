@@ -58,7 +58,7 @@ public class NotaFiscalService {
             item.setNotaFiscal(notaFiscal);
             notaFiscal.getItens().add(item);
 
-            diminuiQuantidadePosCompra(itemDto);
+//            diminuiQuantidadePosCompra(itemDto);
         }
         notaFiscal.setCliente(cliente);
 
@@ -66,17 +66,17 @@ public class NotaFiscalService {
     }
 
 
-    //diminuindo quantidade de produto após compra
-    public void diminuiQuantidadePosCompra(ItemNotaFiscalDto itemNotaFiscalDto) {
-        ProdutoModel produto = produtoRepository.findById(itemNotaFiscalDto.getProdutoId())
-                .orElseThrow(() -> new ValidacaoException("produto não encontrado"));
-
-        if(produto.getQuantidade().compareTo(itemNotaFiscalDto.getQuantidade()) < 0){
-            throw new ValidacaoException("Estoque insuficiente");
-        }
-
-        produto.setQuantidade(produto.getQuantidade().min(itemNotaFiscalDto.getQuantidade()));
-    }
+//    //diminuindo quantidade de produto após compra
+//    public void diminuiQuantidadePosCompra(ItemNotaFiscalDto itemNotaFiscalDto) {
+//        ProdutoModel produto = produtoRepository.findById(itemNotaFiscalDto.getProdutoId())
+//                .orElseThrow(() -> new ValidacaoException("produto não encontrado"));
+//
+//        if(produto.getQuantidade().compareTo(itemNotaFiscalDto.getQuantidade()) < 0){
+//            throw new ValidacaoException("Estoque insuficiente");
+//        }
+//
+//        produto.setQuantidade(produto.getQuantidade().min(itemNotaFiscalDto.getQuantidade()));
+//    }
 
     //validando codigo nota fiscal
     public void validaCodigoNota(NotaFiscalDto notaFiscalDto) {
@@ -114,7 +114,7 @@ public class NotaFiscalService {
             item.setNotaFiscal(notaFiscal);
             notaFiscal.getItens().add(item);
 
-            diminuiQuantidadePosCompra(itemDto);
+//            diminuiQuantidadePosCompra(itemDto);
         }
 
         notaFiscalRepository.save(notaFiscal);
