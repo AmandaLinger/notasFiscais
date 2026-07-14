@@ -38,7 +38,14 @@ public class ProdutoService {
     }
 
     public List<ProdutoModel> getAllProdutos() {
-        return  produtoRepository.getAllProdutos();
+
+        List<ProdutoModel> produtos = produtoRepository.findAll();
+
+        if(produtos.isEmpty()){
+            throw new ValidacaoException("Nenhum produto encontrado.");
+        } else {
+            return produtos;
+        }
     }
 
     @Transactional

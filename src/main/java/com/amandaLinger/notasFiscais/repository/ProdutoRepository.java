@@ -12,18 +12,6 @@ import java.util.Optional;
 
 
 public interface ProdutoRepository extends JpaRepository<ProdutoModel,Long> {
-    @Query(value = """
-    SELECT
-        p.id AS id,
-        p.nome AS nome,
-        p.preco AS preco,
-        p.descricao AS descricao,
-        p.quantidade AS quantidade    
-    FROM Produtos p
-    """, nativeQuery = true)
-    List<ProdutoModel> getAllProdutos();
-
-
     Optional<ProdutoModel> findByNome(String nome);
 
     Double findByPreco(@NotNull Long produtoId);
