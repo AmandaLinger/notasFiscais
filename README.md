@@ -16,7 +16,7 @@
 <P> O código do cliente deve ser único.</P>
 <P> O número da nota fiscal deve ser único.</P>
 <p> Não é possível emitir nota para cliente inexistente.</p> 
-<p> O estoque do produto é atualizado após a emissão da nota.</p> 
+<p> O estoque do produto é atualizado após a emissão da nota. (comentado)</p> 
 <p> O valor total da nota é calculado automaticamente com base nos itens.</p> 
 </br>
 <h3>Estrutura do projeto</h3>
@@ -60,9 +60,7 @@
 <p>Body: {
     "nome": "nokia 2010",
     "preco": 700.00,
-    "descricao": "Alta capacidade de bateria",
-    "quantidade": 5
-
+    "descricao": "Alta capacidade de bateria"
 }</p>
 
 <h4>GET ALL de produtos:</h4>
@@ -76,8 +74,7 @@
 <p>Body: {
         "nome": "samsung s21",
         "preco": 1700.99,
-        "descricao": "celular última geração 8GB RAM",
-        "quantidade": 50
+        "descricao": "celular última geração 8GB RAM"
 }</p>
 
 <h4>DELETE de produto:</h4>
