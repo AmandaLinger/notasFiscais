@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -15,10 +17,10 @@ public class ProdutoDto4Construtores {
     private String nome;
 
     @NotNull
-    private Double preco;
+    private BigDecimal preco;
 
     private String descricao;
 
     @NotNull
-    private Integer quantidade;
+    private BigDecimal quantidade;
 }

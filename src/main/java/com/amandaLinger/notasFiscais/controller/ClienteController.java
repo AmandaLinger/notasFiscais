@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,31 +27,34 @@ public class ClienteController {
         return clienteService.getAllClientes();
     }
 
-    @GetMapping("/{codigo}")
-    public ClienteModel listarCliente(@PathVariable Long codigo){
-        return clienteService.getCliente(codigo);
+    @GetMapping("/{id}") //ok
+    public ClienteModel listarCliente(@PathVariable Long id){
+        return clienteService.getCliente(id);
     }
 
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public String criandoCliente(@RequestBody @Valid ClienteDto clienteDto) throws BadRequestException {
-        clienteService.createCliente(clienteDto);
-        return "Cliente criado com sucesso";
+    @PostMapping //ok
+    public ResponseEntity<ClienteDto> criandoCliente(@RequestBody @Valid ClienteDto clienteDto) throws BadRequestException {
+        ClienteDto clienteCriado = clienteService.createCliente(clienteDto);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(clienteDto);
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String removerCliente(@PathVariable Long id){
+    public ResponseEntity removerCliente(@PathVariable Long id){
         clienteService.deleteCliente(id);
-        return  "Cliente deletado com sucesso";
+        return  ResponseEntity
+                .noContent().build();
     }
 
-    @PutMapping
+    @PutMapping("{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String updateCliente(@RequestBody ClienteDto clienteDto){
+    public ResponseEntity updateCliente(@PathVariable Long id, @RequestBody ClienteDto clienteDto){
 
-        clienteService.updateCliente(clienteDto);
-        return "Cliente atualizado com sucesso";
+        clienteService.updateCliente(id, clienteDto);
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(clienteDto);
     }
 
 }

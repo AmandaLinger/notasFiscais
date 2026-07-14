@@ -30,7 +30,7 @@ public class ClienteService {
     }
 
     //criando cliente
-    public void createCliente(ClienteDto clienteDto){
+    public ClienteDto createCliente(ClienteDto clienteDto){
         ClienteModel cliente = clienteRepository.findByCodigo(clienteDto.getCodigo())
                 .orElse(null);
 
@@ -43,6 +43,7 @@ public class ClienteService {
                 .codigo(clienteDto.getCodigo())
                 .build());
 
+        return clienteDto;
     }
 
     //deletando cliente
@@ -54,17 +55,17 @@ public class ClienteService {
 
 
     //atualizando o cliente
-    @Transactional
-    public void updateCliente(ClienteDto clienteDto) {
-        ClienteModel cliente = clienteRepository.findByCodigo(clienteDto.getCodigo())
+    @Transactional //ok
+    public void updateCliente(Long id, ClienteDto clienteDto) {
+        ClienteModel cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("Cliente não encontrado"));
         cliente.setNome(clienteDto.getNome());
 
         clienteRepository.save(cliente);
     }
 
-    public ClienteModel getCliente(Long codigo) {
-        return clienteRepository.findByCodigo(codigo)
+    public ClienteModel getCliente(Long id) {
+        return clienteRepository.findById(id)
                 .orElseThrow(() -> new ValidacaoException("Cliente não encontrado"));
     }
 }

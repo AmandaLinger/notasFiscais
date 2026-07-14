@@ -7,6 +7,7 @@ import com.amandaLinger.notasFiscais.service.ProdutoService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,25 +33,25 @@ public class ProdutoController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public String cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto){
+    public ResponseEntity cadastrarProduto(@RequestBody @Valid ProdutoDto produtoDto){
         produtoService.createProduto(produtoDto);
-        return  "Produto criado com sucesso.";
+        return  ResponseEntity.status(HttpStatus.CREATED).body(produtoDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String deleteProduto(@PathVariable Long id){
+    public ResponseEntity deleteProduto(@PathVariable Long id){
         produtoService.deleteProduto(id);
-        return "Produto excuído com sucesso.";
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String atualizarProduto(@PathVariable Long id,
+    public ResponseEntity atualizarProduto(@PathVariable Long id,
                                    @RequestBody @Valid  ProdutoDto4Construtores produtoDto4construtores){
         produtoService.updateProduto(id, produtoDto4construtores);
 
-        return "Produto atualizado com sucesso!";
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(produtoDto4construtores);
     }
 }

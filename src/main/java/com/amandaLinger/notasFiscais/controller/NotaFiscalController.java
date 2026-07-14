@@ -8,6 +8,7 @@ import com.amandaLinger.notasFiscais.service.NotaFiscalService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,23 +22,25 @@ public class NotaFiscalController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public String createNotaFiscal(@RequestBody @Valid NotaFiscalDto notaFiscalDto) {
+    public ResponseEntity createNotaFiscal(@RequestBody @Valid NotaFiscalDto notaFiscalDto) {
         notaFiscalService.createNotaFiscal(notaFiscalDto);
-        return "Nota criada com sucesso";
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(notaFiscalDto);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public String deleteNota(@PathVariable Long id){
+    public ResponseEntity deleteNota(@PathVariable Long id){
         notaFiscalService.deleteNota(id);
-        return "Nota deletada com sucesso";
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public String updateNota(@PathVariable Long id,@RequestBody @Valid List<ItemNotaFiscalDto> itens) {
+    public ResponseEntity updateNota(@PathVariable Long id,@RequestBody @Valid List<ItemNotaFiscalDto> itens) {
         notaFiscalService.updateNota(id,itens);
-        return "Nota atualizada com sucesso";
+        return ResponseEntity.status(HttpStatus.OK).body(itens);
     }
 
     @GetMapping

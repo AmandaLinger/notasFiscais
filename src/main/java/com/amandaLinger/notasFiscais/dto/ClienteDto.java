@@ -12,7 +12,6 @@ import lombok.*;
 @ToString
 @Builder
 public class ClienteDto{
-
     @NotBlank(message = "Nome obrigatório")
     String nome;
 

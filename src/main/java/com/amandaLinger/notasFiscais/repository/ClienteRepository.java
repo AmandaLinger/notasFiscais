@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface ClienteRepository extends JpaRepository<ClienteModel, Long> {
     Optional<ClienteModel> findByCodigo(Long codigo);
+
+    Optional<ClienteModel> findById(Long id);
 }
