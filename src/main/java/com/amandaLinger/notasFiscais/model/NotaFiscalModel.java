@@ -3,6 +3,7 @@ package com.amandaLinger.notasFiscais.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,10 +33,12 @@ public class NotaFiscalModel {
             orphanRemoval = true)
     private List<ItemNotaFiscalModel> itens = new ArrayList<>();
 
-    @Transient
-    public double getPrecoTotal() {
+
+    private BigDecimal precoTotal;
+
+    public BigDecimal getPrecoTotal() {
         return itens.stream()
-                .mapToDouble(item -> item.getQuantidade()* item.getPrecoUnitario())
-                .sum();
+                .map(item -> item.getQuantidade().multiply(item.getPrecoUnitario()))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

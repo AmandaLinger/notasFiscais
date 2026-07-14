@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "itens_nota_fiscal")
 @Getter
@@ -17,9 +19,9 @@ public class ItemNotaFiscalModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Integer quantidade;
+    private BigDecimal quantidade;
 
-    private Double precoUnitario;
+    private BigDecimal precoUnitario;
 
     @ManyToOne
     @JoinColumn(name = "produto_id")
@@ -28,5 +30,6 @@ public class ItemNotaFiscalModel {
     @ManyToOne
     @JoinColumn(name = "nota_fiscal_id")
     private NotaFiscalModel notaFiscal;
+
 
 }

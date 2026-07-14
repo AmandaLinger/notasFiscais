@@ -5,6 +5,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @Entity(name = "Produto")
 @Table(name = "Produtos")
 @Setter
@@ -21,10 +23,10 @@ public class ProdutoModel {
     private String nome;
 
     @NotNull
-    private Double preco;
+    private BigDecimal preco;
 
     private String descricao;
 
-    private Integer quantidade;
+    private BigDecimal quantidade;
 
 }

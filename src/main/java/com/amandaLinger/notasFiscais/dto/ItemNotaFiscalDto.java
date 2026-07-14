@@ -3,6 +3,8 @@ package com.amandaLinger.notasFiscais.dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.math.BigDecimal;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -14,9 +16,9 @@ public class ItemNotaFiscalDto {
     @NotNull
     private Long produtoId;
     @NotNull
-    private Integer quantidade;
+    private BigDecimal quantidade;
 
     @NotNull
-    private Double precoUnitario;
+    private BigDecimal precoUnitario;
 
 }

@@ -3,6 +3,7 @@ package com.amandaLinger.notasFiscais.dto;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -23,5 +24,5 @@ public class NotaFiscalDtoFinal {
 
     private List<ItemNotaFiscalDto> itens;
 
-    private Double valorTotal;
+    private BigDecimal valorTotal;
 }

@@ -71,11 +71,11 @@ public class NotaFiscalService {
         ProdutoModel produto = produtoRepository.findById(itemNotaFiscalDto.getProdutoId())
                 .orElseThrow(() -> new ValidacaoException("produto não encontrado"));
 
-        if(produto.getQuantidade()<itemNotaFiscalDto.getQuantidade()){
+        if(produto.getQuantidade().compareTo(itemNotaFiscalDto.getQuantidade()) < 0){
             throw new ValidacaoException("Estoque insuficiente");
         }
 
-        produto.setQuantidade(produto.getQuantidade() - itemNotaFiscalDto.getQuantidade());
+        produto.setQuantidade(produto.getQuantidade().min(itemNotaFiscalDto.getQuantidade()));
     }
 
     //validando codigo nota fiscal
